@@ -7,4 +7,4 @@
 3. cmake..
 4. cmake --build .
 5. YadroTestTask.exe будет лежать в каталоге build\Debug. Для запуска приложения перейдите в этот каталог, используя командную строку.
-6. Пропишите: YadroTestTask.exe ..\\..\tests\TestName.txt". Все тесты собраны в текстовых файлах в папке tests
+6. Пропишите: YadroTestTask.exe ..\\..\tests\TestName.txt Все тесты собраны в текстовых файлах в папке tests
