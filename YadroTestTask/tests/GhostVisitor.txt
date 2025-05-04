@@ -1,0 +1,20 @@
+5
+08:00 20:00
+25
+08:01 1 Jhon
+08:07 2 Jhon 2
+08:14 1 Alex
+08:15 4 Colby
+08:15 1 Colby
+08:15 3 Jhon
+08:16 2 Jhon 2
+08:19 2 Jhon 1
+08:22 2 Colby 5
+11:14 4 Jhon
+11:15 1 Henry
+11:27 3 Henry
+11:28 2 Henry 2
+12:00 2 Jim 3
+12:00 1 Jim
+12:05 2 Jim 3
+20:01 1 Doug
