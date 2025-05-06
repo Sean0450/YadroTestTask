@@ -1,6 +1,6 @@
-#include "../include/GamingCafe.h"
+﻿#include "../include/GamingCafe.h"
 
-bool GamingCafe::FormatChecker(int counter, const std::string_view line)
+bool GamingCafe::FormatChecker(int counter, std::string_view line)
 {
   if (counter == 0 or counter == 2)
   {
@@ -8,6 +8,7 @@ bool GamingCafe::FormatChecker(int counter, const std::string_view line)
   }
   return line.size() > 8 and line.find(" ") != std::string_view::npos;
 }
+
 void GamingCafe::ReadInputFile(const char * fileName)
 {
   std::ifstream file(fileName);
@@ -50,15 +51,15 @@ void GamingCafe::ReadInputFile(const char * fileName)
   }
 }
 
-void GamingCafe::EventHandler(const std::string_view event)
+void GamingCafe::EventHandler(std::string_view event)
 {
   PrintOutputEvent(event);
-  auto eventID = static_cast<EventTypes>(std::stoi(std::string(event.substr(6, 1))) - 1);
-  SwitchEventType(eventID);
-  auto action = m_activeEvent->WorkingWithVisitor(event, m_dataManager);
-  if (!action.empty())
+  EventData eventData(event);
+  SwitchEventType(eventData.m_eventType);
+  m_activeEvent->WorkingWithVisitor(eventData, m_dataManager);
+  if (!eventData.GetOutputData().empty())
   {
-    PrintOutputEvent(action);
+    PrintOutputEvent(eventData.GetOutputData());
   }
 }
 

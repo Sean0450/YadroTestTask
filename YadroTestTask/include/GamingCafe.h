@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include "EventData.h"
 #include "GamingCafeDataManager.h"
 #include "GamingTable.h"
 #include "VisitorComingEvent.h"
@@ -17,8 +18,8 @@ class GamingCafe
 {
   std::unique_ptr<Event> m_activeEvent;
   GamingCafeDataManager m_dataManager;
-  bool FormatChecker(int counter, const std::string_view line);
-  void EventHandler(const std::string_view event);
+  bool FormatChecker(int counter, std::string_view line);
+  void EventHandler(std::string_view event);
   void SwitchEventType(EventTypes eventType);
 
 public:

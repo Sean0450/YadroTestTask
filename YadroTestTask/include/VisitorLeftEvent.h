@@ -4,5 +4,5 @@
 
 class VisitorLeftEvent : public Event
 {
-  std::string WorkingWithVisitor(const std::string_view inputInformation, GamingCafeDataManager & gamingCafeDataManager) override;
+  void WorkingWithVisitor(EventData & data, GamingCafeDataManager & gamingCafeDataManager) override;
 };

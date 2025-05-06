@@ -1,23 +1,24 @@
-#include "../include/VisitorComingEvent.h"
+﻿#include "../include/VisitorComingEvent.h"
+#include "../include/EventData.h"
 
-std::string VisitorComingEvent::WorkingWithVisitor(const std::string_view inputInformation,
-                                                   GamingCafeDataManager & gamingCafeDataManager)
+void VisitorComingEvent::WorkingWithVisitor(EventData & data, GamingCafeDataManager & gamingCafeDataManager)
 {
-  auto time = std::string(inputInformation.substr(0, 5));
-  auto name = std::string(inputInformation.substr(8));
-  if (gamingCafeDataManager.isVisitorInCafe(name))
+  if (gamingCafeDataManager.isVisitorInCafe(data.m_name))
   {
-    return time + " 13 " + phrases::shallNotPass;
+    data.GenerateError(phrases::code13, phrases::shallNotPass);
+    return;
   }
-  auto compareOpenningHoursAndMinutes = ConvertStringHoursToInt(time, gamingCafeDataManager.GetWorkingHours().first);
-  auto compareClosingHoursAndMinutes = ConvertStringHoursToInt(time, gamingCafeDataManager.GetWorkingHours().second);
+  auto compareOpenningHoursAndMinutes = ConvertStringHoursToInt(data.m_time, gamingCafeDataManager.GetWorkingHours().first);
+  auto compareClosingHoursAndMinutes = ConvertStringHoursToInt(data.m_time, gamingCafeDataManager.GetWorkingHours().second);
   if (compareOpenningHoursAndMinutes.first < 0 or
       (compareOpenningHoursAndMinutes.first == 0 and compareOpenningHoursAndMinutes.second < 0) or
       compareClosingHoursAndMinutes.first > 0 or
       (compareClosingHoursAndMinutes.first == 0 and compareOpenningHoursAndMinutes.second > 0))
   {
-    return time + " 13 " + phrases::notOpenYet;
+    data.GenerateError(phrases::code13, phrases::notOpenYet);
   }
-  gamingCafeDataManager.AddVisitor(name);
-  return {};
+  else
+  {
+    gamingCafeDataManager.AddVisitor(data.m_name);
+  }
 }

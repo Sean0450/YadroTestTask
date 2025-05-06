@@ -1,16 +1,16 @@
-#include "../include/VisitorWaitingEvent.h"
+﻿#include "../include/VisitorWaitingEvent.h"
 
-std::string VisitorWaitingEvent::WorkingWithVisitor(const std::string_view inputInformation,
-                                                    GamingCafeDataManager & gamingCafeDataManager)
+#include "../include/EventData.h"
+
+void VisitorWaitingEvent::WorkingWithVisitor(EventData & data, GamingCafeDataManager & gamingCafeDataManager)
 {
-  auto name = std::string(inputInformation.substr(8));
   if (gamingCafeDataManager.HasFreeGamingTable())
   {
-    return std::string(inputInformation.substr(0, 5)) + " 13 " + phrases::cantWait;
+    data.GenerateError(phrases::code13, phrases::cantWait);
+    return;
   }
-  if (!gamingCafeDataManager.AddVisitorToQueue(name))
+  if (!gamingCafeDataManager.AddVisitorToQueue(data.m_name))
   {
-    return std::string(inputInformation.substr(0, 5)) + " 11 " + name;
+    data.GenerateError(phrases::code11, data.m_name);
   }
-  return {};
 }

@@ -1,20 +1,16 @@
-#include "../include/VisitorWantPlayEvent.h"
+﻿#include "../include/VisitorWantPlayEvent.h"
+#include "../include/EventData.h"
 
-std::string VisitorWantPlayEvent::WorkingWithVisitor(const std::string_view inputInformation,
-                                                     GamingCafeDataManager & gamingCafeDataManager)
+
+void VisitorWantPlayEvent::WorkingWithVisitor(EventData & data, GamingCafeDataManager & gamingCafeDataManager)
 {
-  auto name = std::string(inputInformation.substr(8));
-  auto time = std::string(inputInformation.substr(0, 5));
-  auto space = name.find(" ");
-  int gamingTableNumber = std::stoi(name.substr(space + 1));
-  auto rightName = name.substr(0, space);
-  if (!gamingCafeDataManager.isVisitorInCafe(rightName))
+  if (!gamingCafeDataManager.isVisitorInCafe(data.m_name))
   {
-    return time + " 13 " + phrases::clientUnknown;
+    data.GenerateError(phrases::code13, phrases::clientUnknown);
+    return;
   }
-  else if (!gamingCafeDataManager.OccupiedGamingTable(rightName, time, gamingTableNumber))
+  else if (!gamingCafeDataManager.OccupiedGamingTable(data.m_name, data.m_time, data.m_tableNumber.value()))
   {
-    return time + " 13 " + phrases::placeBusy;
+    data.GenerateError(phrases::code13, phrases::placeBusy);
   }
-  return {};
 }

@@ -1,10 +1,11 @@
-#include "../include/GamingCafeDataManager.h"
+﻿#include "../include/GamingCafeDataManager.h"
+
 #include "../include/GamingTable.h"
 
 
 void GamingCafeDataManager::AddVisitor(const std::string & name)
 {
-  m_visitors.insert(std::string(name));
+  m_visitors.insert(name);
 }
 
 bool GamingCafeDataManager::isVisitorInCafe(const std::string & name) const

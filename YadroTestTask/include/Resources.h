@@ -12,4 +12,7 @@ constexpr auto notOpenYet = "NotOpenYet";
 constexpr auto placeBusy = "PlaceISBusy";
 constexpr auto clientUnknown = "ClientUnknown";
 constexpr auto cantWait = "ICantWaitNoLonger!";
+constexpr auto code11 = "11";
+constexpr auto code12 = "12";
+constexpr auto code13 = "13";
 } // namespace phrases

@@ -1,4 +1,4 @@
-#include "../include/GamingTable.h"
+﻿#include "../include/GamingTable.h"
 
 
 std::string_view GamingTable::GetVisitor() const

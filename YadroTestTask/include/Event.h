@@ -10,12 +10,11 @@ enum class EventTypes
   VisitorGoOff
 };
 
-class Visitor;
+class EventData;
 
 class Event
 {
 public:
   virtual ~Event() = default;
-  virtual std::string WorkingWithVisitor(const std::string_view inputInformation,
-                                         GamingCafeDataManager & gamingCafeDataManger) = 0;
+  virtual void WorkingWithVisitor(EventData & data, GamingCafeDataManager & gamingCafeDataManger) = 0;
 };

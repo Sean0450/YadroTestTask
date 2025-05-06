@@ -1,18 +1,18 @@
-#include "../include/VisitorLeftEvent.h"
+﻿#include "../include/VisitorLeftEvent.h"
 
-std::string VisitorLeftEvent::WorkingWithVisitor(const std::string_view inputInformation,
-                                                 GamingCafeDataManager & gamingCafeDataManager)
+#include "../include/EventData.h"
+
+
+void VisitorLeftEvent::WorkingWithVisitor(EventData & data, GamingCafeDataManager & gamingCafeDataManager)
 {
-  auto name = std::string(inputInformation.substr(8));
-  if (!gamingCafeDataManager.isVisitorInCafe(name))
+  if (!gamingCafeDataManager.isVisitorInCafe(data.m_name))
   {
-    return std::string(inputInformation.substr(0, 5)) + " 13 " + phrases::clientUnknown;
+    data.GenerateError(phrases::code13, phrases::clientUnknown);
+    return;
   }
-  auto freeTableAndSetNext = gamingCafeDataManager.FreeGamingTable(name, std::string(inputInformation.substr(0, 5)));
+  auto freeTableAndSetNext = gamingCafeDataManager.FreeGamingTable(data.m_name, data.m_time);
   if (freeTableAndSetNext.has_value())
   {
-    return std::string(inputInformation.substr(0, 5)) + " 12 " + freeTableAndSetNext.value().first + " " +
-           freeTableAndSetNext.value().second;
+    data.GenerateOutput(phrases::code12, freeTableAndSetNext.value());
   }
-  return {};
 }
